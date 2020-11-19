@@ -8,6 +8,7 @@ import {
     Beforestream, 
     DetailCourse, 
     Home, 
+    Libtest, 
     Livestream, 
     Login, 
     Myplaylist, 
@@ -48,6 +49,7 @@ const Routes = () => {
             <Stack.Screen name="Livestream" component={Livestream} options={{headerShown: false}} />
             <Stack.Screen name="Beforestream" component={Beforestream} options={{headerShown: false}} />
             <Stack.Screen name="Categorycourse" component={CategoryCourse} options={{headerShown: false}} />
+            <Stack.Screen name="Libtest" component={Libtest} options={{headerShown: false}} />
         </Stack.Navigator>
     )
 }

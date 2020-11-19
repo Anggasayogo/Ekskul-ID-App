@@ -1,11 +1,48 @@
-import React from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
+import Axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import Spinner from 'react-native-loading-spinner-overlay'
 import { UserProfile, IcShare, IcEditprofile, IcLogout, IcTicket } from '../../assets'
 import { Gap, List } from '../../components'
 
 const Profile = ({navigation}) => {
+    const [nama,setNama] = useState('');
+    const [loading,setLoading] = useState(false);
+
+    useEffect(()=>{
+        const _getname = async ()=>{
+            const name = await AsyncStorage.getItem('username')
+            setNama(name);
+        }
+        _getname();
+    },[])
+    const logout = async ()=>{
+        setLoading(true)
+        const api_token = await AsyncStorage.getItem('api_token')
+        Axios.get('http://service.ekskul.co.id/api/v1/logout',{ 
+            headers: {"Authorization" : `Bearer ${api_token}`
+        }})
+        .then(res=>{
+            setLoading(false)
+            navigation.replace('Login');
+        })
+        .catch(err=>{
+            console.log(err)
+            setLoading(false)
+        })
+        await AsyncStorage.removeItem('username');
+        await AsyncStorage.removeItem('email');
+        await AsyncStorage.removeItem('api_token');
+    }
     return (
         <View style={styles.pages}>
+            {
+                loading && <Spinner visible={true}
+                    textContent={'Loading...'}
+                    textStyle={styles.spinnerTextStyle}
+                />
+            }
             <View style={styles.container}>
                 <Gap height={50}/>
                 <View>
@@ -13,7 +50,7 @@ const Profile = ({navigation}) => {
                         <Image source={UserProfile} style={styles.imagehero}/>
                     </View>
                     <Gap height={20} />
-                    <Text style={styles.nama}>Angga Maulana</Text>
+                    <Text style={styles.nama}>{nama}</Text>
                     <Text style={styles.welcome}>Welcome Back !</Text>
                 </View>
                 <Gap height={80} />
@@ -23,7 +60,7 @@ const Profile = ({navigation}) => {
                 <Gap height={25}/>
                 <List fontSize={14} onPress={()=>{navigation.navigate('Beforestream')}} type="profile" count="live online  event sminar for everyone" title="Events" icon={IcTicket} />
                 <Gap height={25}/>
-                <List fontSize={14} type="profile" count="logout for destroying your session" title="Logout"
+                <List fontSize={14} onPress={logout} type="profile" count="logout for destroying your session" title="Logout"
                 icon={IcLogout} />
                 <Gap height={25} />
             </View>

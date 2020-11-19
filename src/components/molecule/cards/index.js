@@ -24,7 +24,7 @@ const Cards = ({onPress,gambar,title,price,type,types,width}) => {
 
     return (
         <TouchableOpacity style={styles.card(types)} onPress={onPress}>
-            <Image source={gambar} style={styles.heroimage(types)} />
+            <Image source={{uri : gambar }} style={styles.heroimage(types)} />
             <View style={{flexDirection: 'row', maxWidth: 114}}>
                 <IcRate/>
                 <IcRate/>

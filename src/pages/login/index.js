@@ -1,28 +1,91 @@
-import React from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
+import Axios from 'axios'
+import React, { useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
+import { showMessage } from 'react-native-flash-message'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import Spinner from 'react-native-loading-spinner-overlay'
 import { IcLogo } from '../../assets'
 import { Btn, Gap, Inputs } from '../../components'
+import { useForm } from '../../utils'
 
 const Login = ({navigation}) => {
+    const [form,setForm] = useForm({
+        email : '',
+        password : '',
+    })
+    const [loading,setLoading] = useState(false);
+    const handleSubmit = ()=>{
+        setLoading(true);
+        if(form.email == ''){
+            showMessage({
+                message : 'email/password tidak boeh kosong!',
+                type : 'warning'
+            });
+            setLoading(false)
+        }else{
+            if(form.password == ''){
+                showMessage({
+                    message : 'email/password tidak boeh kosong!',
+                    type : 'warning'
+                });
+                setLoading(false)
+            }else{
+                Axios.post('http://service.ekskul.co.id/api/login',{
+                    email : form.email,
+                    password : form.password,
+                })
+                .then(res=>{
+                   AsyncStorage.setItem('api_token',res.data.api_token)
+                   AsyncStorage.setItem('email',res.data.data.email)
+                   AsyncStorage.setItem('username',res.data.data.name)
+                    setLoading(false)
+                    navigation.replace('MainApp');
+                })
+                .catch(err=>{
+                    console.log(err)
+                    showMessage({
+                        message : 'email/password Salah!',
+                        type : 'danger'
+                    })
+                    setLoading(false)
+                })
+            }
+
+        }
+
+    }
     return (
         <View style={styles.pages}>
+            {
+                loading && <Spinner visible={true}
+                    textContent={'Loading...'}
+                    textStyle={styles.spinnerTextStyle}
+                />
+            }
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Gap height={50}/>
-                <Image source={IcLogo} style={{width: 200,height: 70}}/>
+                <Image source={IcLogo} style={styles.hero}/>
                 <Gap height={50}/>
                 <Gap height={40}/>
-                <Inputs placeholder="input email" title="Email"/>
+                <Inputs placeholder="input email" title="Email" 
+                    onChangeText={(value)=>{setForm('email',value)}} 
+                    value={form.email}
+                />
                 <Gap height={30}/>
-                <Inputs placeholder="input password" title="Password" type="password"/>
+                <Inputs placeholder="input password" 
+                    title="Password" type="password" 
+                    onChangeText={(value)=>setForm('password',value)}
+                    value={form.password}
+                />
                 <Gap height={40}/>
-                <Btn height={43} title="Login" onPress={()=>{navigation.navigate('MainApp')}}/>
+                <Btn height={43} title="Login" onPress={handleSubmit}/>
                 <Gap height={40}/>
                 <Text style={{fontFamily: 'Nunito-Regular'}}>
                     If you no have account ? please
                 </Text>
                 <TouchableOpacity onPress={()=>{navigation.navigate('Register')}}>
-                    <Text style={{color: "#F8B459", fontFamily: 'Nunito-Regular'}}>Register Here</Text>
+                    <Text style={styles.registext}>Register Here</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>
@@ -37,5 +100,7 @@ const styles = StyleSheet.create({
         padding: 15,
         backgroundColor: 'white'
     },
-    icGoogle:{width: 46,height: 43}
+    icGoogle:{width: 46,height: 43},
+    registext: {color: "#F8B459", fontFamily: 'Nunito-Regular'},
+    hero: {width: 200,height: 70}
 })

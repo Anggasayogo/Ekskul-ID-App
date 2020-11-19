@@ -65,7 +65,7 @@ const List = ({icon,title,count,onPress,type,fontSize,width}) => {
     return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
             <View style={styles.hero(type)}>
-                <Image source={icon} style={{height: 24,width: 24}}/>
+                <Image source={{ uri : icon }} style={{height: 24,width: 24}}/>
             </View>
             <View style={styles.wraper}>
                 <Gap height={5}/>

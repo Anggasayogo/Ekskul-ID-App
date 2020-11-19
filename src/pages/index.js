@@ -11,9 +11,11 @@ import ActionPlay from './actionplay'
 import Livestream from './livestream';
 import Beforestream from './beforestream';
 import categorycourse from './categorycourse';
+import Libtest from './libtest';
 
 
 export{
+    Libtest,
     categorycourse,
     Beforestream,
     Livestream,

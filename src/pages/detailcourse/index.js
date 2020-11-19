@@ -1,13 +1,30 @@
-import React from 'react'
+import AsyncStorage from '@react-native-community/async-storage'
+import Axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { DuDrone, IcLabel, IcCheck } from '../../assets'
 import { Back, Btn, Gap } from '../../components'
 
-const DetailCourse = ({navigation}) => {
+const DetailCourse = ({navigation,route}) => {
+    const {id_playlist} = route.params;
+    const [detail,setDetail] = useState('');
+
+    useEffect(()=>{
+       const _getDetailsCourse = async ()=>{
+            const api_token = await AsyncStorage.getItem('api_token')
+           Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_playlist}`,{
+            headers: {"Authorization" : `Bearer ${api_token}`}
+           })
+           .then(res=>{
+               setDetail(res.data.data)
+           })
+       }
+       _getDetailsCourse();
+    },[])
     return (
         <View style={styles.pages}>
-            <ImageBackground source={DuDrone} style={styles.heroes}>
+            <ImageBackground source={{ uri : `https://service.ekskul.co.id/${detail.image}`}} style={styles.heroes}>
                 <Gap height={15}/>
                 <View style={styles.topback}>
                     <Back onPress={()=>{navigation.goBack()}}/>
@@ -19,18 +36,14 @@ const DetailCourse = ({navigation}) => {
                     <View style={styles.title}>
                         <IcLabel/>
                         <View style={styles.judul}>
-                            <Text style={styles.realjudul}>Full stack Nuxt Js & Laravel Dron App</Text>
+                            <Text style={styles.realjudul}>{detail.playlist_name}</Text>
                         </View>
                     </View>
                     <Gap height={40}/>
                     <View>
                         <Text style={styles.about}>About This Course ?</Text>
                         <Gap height={15} />
-                        <Text style={styles.aboutContent}> pemrograman untuk membangun API yang dikonsumsi 
-oleh Front-End seperti Vue, React, Angular, dan lainnya. 
-Pada kelas ini, kita akan mempelajari kedua bahasa tersebut 
-dalam membangun website Crowdfunding 
-(mengumpulkan dana untuk Startup).</Text>
+                        <Text style={styles.aboutContent}>{detail.about_playlist}</Text>
                     </View>
                     <Gap height={40} />
                     <View>
@@ -38,19 +51,23 @@ dalam membangun website Crowdfunding
                         <Gap height={15} />
                         <View style={styles.silabus}>
                             <IcCheck/>
-                            <Text style={styles.titlesilabus}>Membuat Responsive Website Design</Text>
+                            <Text style={styles.titlesilabus}>{detail.silabus1}</Text>
                         </View>
                         <View style={styles.silabus}>
                             <IcCheck/>
-                            <Text style={styles.titlesilabus}>Membuat Component pada NuxtJS</Text>
+                            <Text style={styles.titlesilabus}>{detail.silabus2}</Text>
                         </View>
                         <View style={styles.silabus}>
                             <IcCheck/>
-                            <Text style={styles.titlesilabus}>Deployment Aplikasi NuxtJS ke Server</Text>
+                            <Text style={styles.titlesilabus}>{detail.silabus3}</Text>
+                        </View>
+                        <View style={styles.silabus}>
+                            <IcCheck/>
+                            <Text style={styles.titlesilabus}>{detail.silabus4}</Text>
                         </View>
                     </View>
                     <Gap height={20} />
-                    <Btn title="Buy Course" type="btn-buy" height={43} />
+                    <Btn title="Buy Course" type="btn-buy" height={43} onPress={()=>(navigation.navigate('Libtest'))} />
                     <Gap height={20} />
                 </ScrollView>
             </View>
