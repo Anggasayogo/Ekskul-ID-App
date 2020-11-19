@@ -30,7 +30,7 @@ const Home = ({navigation}) => {
 
         const _getbaner = async () => {
             const api_token = await AsyncStorage.getItem('api_token')
-            Axios.get('http://service.ekskul.co.id/api/v1/setings',{
+            Axios.get('https://service.ekskul.co.id/api/v1/setings',{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
             .then(res=>{
@@ -74,7 +74,7 @@ const Home = ({navigation}) => {
                     <View style={styles.wrapslide}>
                         {
                             !banerloader ? 
-                            <Swiper autoplay={true} dotColor="white" >
+                            <Swiper autoplay={false} dotColor="white" >
                             {
                                 baner.map((e,i)=>{
                                     return (

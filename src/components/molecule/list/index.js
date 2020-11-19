@@ -1,10 +1,10 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { IcRight } from '../../../assets';
+import { IcRate, IcRight } from '../../../assets';
 import { Gap } from '../../atom';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 
-const List = ({icon,title,count,onPress,type,fontSize,width}) => {
+const List = ({icon,title,count,onPress,type,fontSize,width,harga}) => {
     if(type === 'placeholder'){
         return(
             <SkeletonPlaceholder>
@@ -42,6 +42,28 @@ const List = ({icon,title,count,onPress,type,fontSize,width}) => {
                 <Text style={{fontSize: 14,fontFamily: 'Nunito-Regular'}}>{title}</Text>
                 <Gap height={5}/>
                 <Text style={{fontSize: 10}}>{count}</Text>
+            </View>
+            <IcRight/>
+        </TouchableOpacity>
+    }
+    if(type === 'play-search'){
+        return <TouchableOpacity onPress={onPress} style={styles.container}>
+            <View style={styles.heroes}>
+                <Image source={{ uri : icon}} style={styles.heroes}/>
+            </View>
+            <View style={styles.wraper}>
+                <Gap height={5}/>
+                <Text style={{fontSize: 14,fontFamily: 'Nunito-Regular'}}>{title}</Text>
+                <Gap height={5}/>
+                <Text style={{fontSize: 10}}>{count}</Text>
+                <Gap height={5}/>
+                <Text style={{fontSize: 10}}>Rp {harga}</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <IcRate/>
+                    <IcRate/>
+                    <IcRate/>
+                    <IcRate/>
+                </View>
             </View>
             <IcRight/>
         </TouchableOpacity>
