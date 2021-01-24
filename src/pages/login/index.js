@@ -1,5 +1,7 @@
 import React from 'react'
 import { 
+    TouchableOpacity,
+    ScrollView, 
     StyleSheet, 
     Image, 
     Text, 
@@ -7,7 +9,6 @@ import {
 } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 import { showMessage } from 'react-native-flash-message'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import { IcLogo } from '../../assets'
