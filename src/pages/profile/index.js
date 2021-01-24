@@ -3,7 +3,7 @@ import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
-import { UserProfile, IcShare, IcEditprofile, IcLogout, IcTicket } from '../../assets'
+import { IcShare, IcEditprofile, IcLogout, IcTicket, IcUser } from '../../assets'
 import { Gap, List } from '../../components'
 
 const Profile = ({navigation}) => {
@@ -34,6 +34,7 @@ const Profile = ({navigation}) => {
         await AsyncStorage.removeItem('username');
         await AsyncStorage.removeItem('email');
         await AsyncStorage.removeItem('api_token');
+        await AsyncStorage.removeItem('id_user');
     }
     return (
         <View style={styles.pages}>
@@ -47,7 +48,7 @@ const Profile = ({navigation}) => {
                 <Gap height={50}/>
                 <View>
                     <View style={styles.hero}>
-                        <Image source={UserProfile} style={styles.imagehero}/>
+                        <Image source={IcUser} style={styles.imagehero}/>
                     </View>
                     <Gap height={20} />
                     <Text style={styles.nama}>{nama}</Text>
@@ -97,5 +98,8 @@ const styles = StyleSheet.create({
         width: 110,
         height: 106,
         borderRadius: 60,
-    }
+    },
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
 })

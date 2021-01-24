@@ -57,7 +57,7 @@ const List = ({icon,title,count,onPress,type,fontSize,width,harga}) => {
                 <Gap height={5}/>
                 <Text style={{fontSize: 10}}>{count}</Text>
                 <Gap height={5}/>
-                <Text style={{fontSize: 10}}>Rp {harga}</Text>
+                <Text style={{fontSize: 10}}>{harga}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <IcRate/>
                     <IcRate/>

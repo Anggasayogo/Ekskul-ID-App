@@ -4,6 +4,7 @@ import InHome from './in_home.svg';
 import InSearch from './in_search.svg';
 import InPlay from './in_play.svg';
 import InProfile from './in_profile.svg';
+import IcUser from './user.png';
 import HomeAct from './home_act.svg';
 import SearchAct from './search_act.svg';
 import PlayAct from './play_act.svg';
@@ -62,4 +63,5 @@ export{
     IcPrograming,
     IcBusines,
     IcMusic,
+    IcUser,
 }

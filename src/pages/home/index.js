@@ -4,9 +4,11 @@ import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Swiper from 'react-native-swiper'
+import { useSelector } from 'react-redux'
 import { Cards, Carousel, Gap, List } from '../../components'
 
 const Home = ({navigation}) => {
+    const stateGlobal = useSelector(state => state);
     // banner
     const [baner,setBaner] = useState([]);
     const [banerloader,setBanerLoader] = useState(true)
@@ -42,7 +44,8 @@ const Home = ({navigation}) => {
 
         const _getCourseToprate = async ()=>{
             const api_token = await AsyncStorage.getItem('api_token')
-            Axios.get('https://service.ekskul.co.id/api/v1/playlist',{
+            const id_user = await AsyncStorage.getItem('id_user')
+            Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
             .then(res=>{
@@ -69,7 +72,7 @@ const Home = ({navigation}) => {
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Gap height={15} />
-                    <Text style={{fontSize: 14,fontFamily: 'Nunito-Bold'}}>Hi! Welcome Back</Text>
+                    <Text style={{fontSize: 14,fontFamily: 'Nunito-Bold'}}>{stateGlobal.welcome}</Text>
                     <Gap height={15}/>
                     <View style={styles.wrapslide}>
                         {
@@ -142,7 +145,7 @@ const Home = ({navigation}) => {
                                     <Gap height={15}/>
                                         <List
                                         key={i} 
-                                        onPress={()=>{navigation.navigate('Categorycourse')}} 
+                                        onPress={()=>{navigation.navigate('Categorycourse',{'id_category' : e.id_category})}} 
                                         title={e.category_name} 
                                         count={e.created_at} 
                                         icon={`https://service.ekskul.co.id/${e.icon_category}`} />

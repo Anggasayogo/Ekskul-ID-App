@@ -6,6 +6,7 @@ import DuReact from './react.png';
 import DuFulstackJs from './fulstackjs.png';
 import UserProfile from './user.jpg';
 import DuSpace from './space.png'
+import DuNotfound from './notfound.png'
 
 
 export{
@@ -17,4 +18,5 @@ export{
     DuReact,
     DuFulstackJs,
     UserProfile,
+    DuNotfound,
 }

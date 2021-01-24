@@ -1,18 +1,47 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import React, {useState} from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { UserProfile } from '../../assets'
+import { IcUser, IcEditprofile } from '../../assets'
 import { Btn, Gap, Inputs } from '../../components'
+import { apply } from 'osmicsx'
+import { RNCamera } from 'react-native-camera'
 
 const EditProfile = ({navigation}) => {
+    // const [ref,setRef] = useState(false)
     return (
         <View style={styles.pages}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <RNCamera
+                ref={ref => {
+                    this.camera = ref;
+                }}
+                style={styles.preview}
+                type={RNCamera.Constants.Type.back}
+                flashMode={RNCamera.Constants.FlashMode.on}
+                androidCameraPermissionOptions={{
+                    title: 'Permission to use camera',
+                    message: 'We need your permission to use your camera',
+                    buttonPositive: 'Ok',
+                    buttonNegative: 'Cancel',
+                }}
+                androidRecordAudioPermissionOptions={{
+                    title: 'Permission to use audio recording',
+                    message: 'We need your permission to use your audio',
+                    buttonPositive: 'Ok',
+                    buttonNegative: 'Cancel',
+                }}
+                onGoogleVisionBarcodesDetected={({ barcodes }) => {
+                    console.log(barcodes);
+                }}
+            ></RNCamera>
+            {/* <TouchableOpacity style={apply("absolute pl-16 pt-16 tems-center")}>
+                <Image source={IcEditprofile} style={{width: 24, height: 24, borderRadius: 9999, backgroundColor: 'red', margin: 10}} />
+            </TouchableOpacity> */}
+            {/* <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <Gap height={50}/>
                 <View>
                     <View style={styles.hero}>
-                        <Image source={UserProfile} style={styles.imagehero}/>
+                        <Image source={IcUser} style={styles.imagehero}/>
                     </View>
                     <Gap height={20} />
                     <Text style={styles.nama}>Angga Maulana</Text>
@@ -29,7 +58,7 @@ const EditProfile = ({navigation}) => {
                 <Gap height={20} /> 
                 <Btn title="Update" height={45} />
             </View>
-            </ScrollView>
+            </ScrollView> */}
         </View>
     )
 }
@@ -49,12 +78,18 @@ const styles = StyleSheet.create({
         width: 120,
         height: 116,
         borderRadius: 60,
-        backgroundColor: '#F8B459'
+        backgroundColor: '#F8B459',
+        position: 'relative'
     },
     container:{
         alignItems: 'center',
         padding: 15,
         backgroundColor: 'white',
+    },
+    preview: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     },
     imagehero:{
         width: 110,

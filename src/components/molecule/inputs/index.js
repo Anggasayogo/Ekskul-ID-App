@@ -25,7 +25,6 @@ const Inputs = ({placeholder,title,type,height,onChangeText,value}) => {
                 placeholder={placeholder} 
                 style={styles.input(border)}
             />
-            <IcSearch style={styles.icon} />
         </View>
     }
 

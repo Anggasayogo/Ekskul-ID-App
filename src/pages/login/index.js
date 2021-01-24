@@ -1,55 +1,53 @@
+import React from 'react'
+import { 
+    StyleSheet, 
+    Image, 
+    Text, 
+    View 
+} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
-import Axios from 'axios'
-import React, { useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
 import { showMessage } from 'react-native-flash-message'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { useDispatch, useSelector } from 'react-redux'
 import { IcLogo } from '../../assets'
 import { Btn, Gap, Inputs } from '../../components'
+import { loginActions } from '../../redux/action/loginAction'
 import { useForm } from '../../utils'
 
 const Login = ({navigation}) => {
+    const logins = useSelector(state => state.loginReducer)
+    const { loading } = logins
+    const dispatch = useDispatch()
     const [form,setForm] = useForm({
         email : '',
         password : '',
     })
-    const [loading,setLoading] = useState(false);
+
     const handleSubmit = ()=>{
-        setLoading(true);
         if(form.email == ''){
             showMessage({
                 message : 'email/password tidak boeh kosong!',
                 type : 'warning'
             });
-            setLoading(false)
         }else{
             if(form.password == ''){
                 showMessage({
                     message : 'email/password tidak boeh kosong!',
                     type : 'warning'
                 });
-                setLoading(false)
             }else{
-                Axios.post('http://service.ekskul.co.id/api/login',{
-                    email : form.email,
-                    password : form.password,
-                })
-                .then(res=>{
-                   AsyncStorage.setItem('api_token',res.data.api_token)
-                   AsyncStorage.setItem('email',res.data.data.email)
-                   AsyncStorage.setItem('username',res.data.data.name)
-                    setLoading(false)
-                    navigation.replace('MainApp');
-                })
-                .catch(err=>{
-                    console.log(err)
-                    showMessage({
-                        message : 'email/password Salah!',
-                        type : 'danger'
-                    })
-                    setLoading(false)
-                })
+                const data = {
+                        email : form.email,
+                        password : form.password,
+                    }
+                dispatch(loginActions(data))
+                AsyncStorage.setItem('api_token',logins.data.api_token)
+                AsyncStorage.setItem('email',logins.data.data.email)
+                AsyncStorage.setItem('username',logins.data.data.name)
+                AsyncStorage.setItem('id_user',logins.data.data.id)
+                navigation.replace('MainApp');
+                
             }
 
         }
@@ -92,7 +90,7 @@ const Login = ({navigation}) => {
     )
 }
 
-export default Login
+export default Login;
 
 const styles = StyleSheet.create({
     pages:{
@@ -102,5 +100,9 @@ const styles = StyleSheet.create({
     },
     icGoogle:{width: 46,height: 43},
     registext: {color: "#F8B459", fontFamily: 'Nunito-Regular'},
-    hero: {width: 200,height: 70}
+    hero: {width: 200,height: 70},
+    spinnerTextStyle: {
+        color: '#FFF'
+    },
 })
+

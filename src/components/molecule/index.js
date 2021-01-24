@@ -3,6 +3,7 @@ import BotoomtabNavigator from './botoomtabNavigator';
 import Cards from './cards';
 import List from './list'
 import Carousel from './carousel'
+import Notfound from './notfound'
 
 export{
     Inputs,
@@ -10,4 +11,5 @@ export{
     Cards,
     List,
     Carousel,
+    Notfound
 }

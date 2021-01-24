@@ -9,15 +9,19 @@ import { Back, Btn, Gap } from '../../components'
 const DetailCourse = ({navigation,route}) => {
     const {id_playlist} = route.params;
     const [detail,setDetail] = useState('');
+    const [idi,setIdi] = useState('');
 
     useEffect(()=>{
        const _getDetailsCourse = async ()=>{
             const api_token = await AsyncStorage.getItem('api_token')
-           Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_playlist}`,{
+            const id_user = await AsyncStorage.getItem('id_user')
+            const email = await AsyncStorage.getItem('email')
+           Axios.get(`https://service.ekskul.co.id/api/v1/playlists/${id_playlist}`,{
             headers: {"Authorization" : `Bearer ${api_token}`}
            })
            .then(res=>{
                setDetail(res.data.data)
+               setIdi(id_user)
            })
        }
        _getDetailsCourse();
@@ -67,7 +71,10 @@ const DetailCourse = ({navigation,route}) => {
                         </View>
                     </View>
                     <Gap height={20} />
-                    <Btn title="Buy Course" type="btn-buy" height={43} onPress={()=>(navigation.navigate('Libtest'))} />
+                    <Btn title="Buy Course" type="btn-buy" height={43} onPress={()=>(navigation.navigate('Libtest',{
+                        'id_playlist' : detail.id_playlist,
+                        'id' : idi
+                    }))} />
                     <Gap height={20} />
                 </ScrollView>
             </View>
