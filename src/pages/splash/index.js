@@ -1,16 +1,23 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import React, { useEffect } from 'react'
 import { Image, StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux'
 import { IcLogo } from '../../assets'
 
 const Splash = ({navigation}) => {
+    const logins = useSelector(state => state.loginReducer)
+    
     useEffect(()=>{
         const _validasisession = async ()=>{
-            const isLogin = await AsyncStorage.getItem('api_token')
+            const isLogin = logins?.data?.api_token
             if(!isLogin){
-                navigation.replace("Autentic")
+                setTimeout(()=>{
+                    navigation.replace("Autentic")
+                },7000)
             }else{
-                navigation.replace('MainApp')
+                setTimeout(()=>{
+                    navigation.replace('MainApp')
+                },7000)
             }
         }
         _validasisession();

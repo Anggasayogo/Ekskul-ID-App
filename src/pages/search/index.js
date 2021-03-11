@@ -6,8 +6,10 @@ import { IcSearch } from '../../assets'
 import { Gap, Inputs, List } from '../../components'
 import { useForm } from '../../utils'
 import { apply } from 'osmicsx';
+import { useSelector } from 'react-redux'
 
 const Search = ({navigation}) => {
+    const logins = useSelector(state => state.loginReducer)
     const [loader,setLoader] = useState(true)
     const [course,setCourse] = useState([])
     const [search,setSearch] = useState([])
@@ -22,7 +24,7 @@ const Search = ({navigation}) => {
 
     const onSearch = async ()=>{
         setSubmit(true)
-        const api_token = await AsyncStorage.getItem('api_token');
+        const api_token = logins?.data?.api_token
         Axios.post('https://service.ekskul.co.id/api/v1/search/playlist',{
             keyword : form.keyword
         },
@@ -37,8 +39,8 @@ const Search = ({navigation}) => {
 
     useEffect(()=>{
         const _getCourseToprate = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token')
-            const id_user = await AsyncStorage.getItem('id_user')
+            const api_token = logins?.data?.api_token
+            const id_user = logins?.data?.id_user
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}?page=${page}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })

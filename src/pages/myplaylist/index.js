@@ -3,17 +3,19 @@ import Axios from 'axios'
 import React, { useEffect, useState, useCallback } from 'react'
 import { FlatList, StyleSheet, View, Text } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
 import { Gap, List } from '../../components'
 
 const Myplaylist = ({navigation}) => {
+    const logins = useSelector(state => state.loginReducer)
     const [loader,setLoader] = useState(true)
     const [course,setCourse] = useState([])
 
     useEffect(()=>{
 
         const _myCourse = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token')
-            const id_user = await AsyncStorage.getItem('id_user')
+            const api_token = logins?.data?.api_token
+            const id_user = logins?.data?.id_user
             Axios.get(`https://service.ekskul.co.id/api/v1/orders/${id_user}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })

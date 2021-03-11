@@ -3,10 +3,12 @@ import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
 import { DuDrone, DuReact } from '../../assets'
 import { Gap, List, Notfound } from '../../components'
 
 const Categorycourse = ({navigation,route}) => {
+    const logins = useSelector(state => state.loginReducer)
     const [loader,setLoader] = useState(true)
     const {id_category} = route.params;
     const [course,setCourse] = useState([]);
@@ -14,7 +16,7 @@ const Categorycourse = ({navigation,route}) => {
 
     useEffect(()=>{
         const _detailsCategoryCourse = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token');
+            const api_token = logins?.data?.api_token
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/cat/${id_category}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}  
             })

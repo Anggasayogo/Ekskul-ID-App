@@ -22,7 +22,7 @@ export const loginActions = (data)=>{
         api.postLogin(data)
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
-            NavigationService.navigate('Home')
+            NavigationService.navigate('MainApp')
         })
         .catch((error) =>{ 
             dispatch(postLoginFailure(error))

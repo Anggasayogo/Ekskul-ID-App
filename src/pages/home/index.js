@@ -144,7 +144,7 @@ const Home = ({navigation}) => {
                             category.map((e,i)=>{
                                 return(
                                     <>
-                                    <Gap height={15}/>
+                                    <Gap key={i} height={15}/>
                                         <List
                                         key={i} 
                                         onPress={()=>{navigation.navigate('Categorycourse',{'id_category' : e.id_category})}} 

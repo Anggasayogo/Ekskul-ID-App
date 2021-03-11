@@ -1,21 +1,23 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
 import { DuDrone, IcLabel, IcCheck } from '../../assets'
 import { Back, Btn, Gap } from '../../components'
 
 const DetailCourse = ({navigation,route}) => {
+    const logins = useSelector(state => state.loginReducer)
     const {id_playlist} = route.params;
     const [detail,setDetail] = useState('');
     const [idi,setIdi] = useState('');
 
     useEffect(()=>{
        const _getDetailsCourse = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token')
-            const id_user = await AsyncStorage.getItem('id_user')
-            const email = await AsyncStorage.getItem('email')
+            const api_token = logins?.data?.api_token
+            const id_user = logins?.data?.id_user
+            const email = logins?.data?.email
            Axios.get(`https://service.ekskul.co.id/api/v1/playlists/${id_playlist}`,{
             headers: {"Authorization" : `Bearer ${api_token}`}
            })
@@ -27,6 +29,8 @@ const DetailCourse = ({navigation,route}) => {
        _getDetailsCourse();
     },[])
     return (
+        <>
+        <StatusBar translucent backgroundColor="transparent" />
         <View style={styles.pages}>
             <ImageBackground source={{ uri : `https://service.ekskul.co.id/${detail.image}`}} style={styles.heroes}>
                 <Gap height={15}/>
@@ -79,6 +83,7 @@ const DetailCourse = ({navigation,route}) => {
                 </ScrollView>
             </View>
         </View>
+        </>
     )
 }
 
@@ -107,7 +112,8 @@ const styles = StyleSheet.create({
         marginVertical: 5
     },
     topback:{
-        marginLeft: 15
+        marginLeft: 15,
+        paddingTop: 15
     },
     title:{
         flexDirection: 'row',

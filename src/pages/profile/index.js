@@ -3,23 +3,26 @@ import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { useSelector } from 'react-redux'
 import { IcShare, IcEditprofile, IcLogout, IcTicket, IcUser } from '../../assets'
 import { Gap, List } from '../../components'
 
 const Profile = ({navigation}) => {
+    const logins = useSelector(state => state.loginReducer)
     const [nama,setNama] = useState('');
     const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
+        console.log(logins?.data)
         const _getname = async ()=>{
-            const name = await AsyncStorage.getItem('username')
+            const name = logins?.data?.data?.name
             setNama(name);
         }
         _getname();
     },[])
     const logout = async ()=>{
         setLoading(true)
-        const api_token = await AsyncStorage.getItem('api_token')
+        const api_token = logins?.data.api_token
         Axios.get('http://service.ekskul.co.id/api/v1/logout',{ 
             headers: {"Authorization" : `Bearer ${api_token}`
         }})
