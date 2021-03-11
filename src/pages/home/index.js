@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Swiper from 'react-native-swiper'
 import { useSelector, useDispatch } from 'react-redux'
@@ -94,80 +94,59 @@ const Home = ({navigation}) => {
                     <Gap height={15}/>
                     <Text style={{fontFamily: 'Nunito-Regular'}}>Top Rate</Text>
                     <Gap height={15}/>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-                        {
-                            ! loadingCourse? 
+                    <FlatList
+                        data={course}
+                        keyExtractor={(item,index)=> index.toString()}
+                        horizontal={true}
+                        renderItem={({item})=>
                             <>
-                            {
-                                course.map((e,i)=>{
-                                    const bilangan = e.harga
-                                    var	number_string = bilangan.toString(),
-	                                sisa 	= number_string.length % 3,
-	                                rupiah 	= number_string.substr(0, sisa),
-	                                ribuan 	= number_string.substr(sisa).match(/\d{3}/g);
-		
-                                    if (ribuan) {
-	                                    separator = sisa ? '.' : '';
-	                                    rupiah += separator + ribuan.join('.');
-                                    }
-                                    return(
-                                        <>
-                                        <Cards 
-                                            key={i}
-                                            onPress={()=>{ navigation.navigate('DetailCourse',{ 'id_playlist' : e.id_playlist }) }} 
-                                            title={`${e.playlist_name}`} 
-                                            gambar={`https://service.ekskul.co.id/${e.image}`} 
-                                            price={rupiah} />
-                                            <Gap width={15}/>
-                                        </>
-                                    )
-                                })
-                            }
+                                <Cards 
+                                    onPress={()=>{ navigation.navigate('DetailCourse',{ 'id_playlist' : item?.id_playlist }) }} 
+                                    title={`${item.playlist_name}`} 
+                                    gambar={`https://service.ekskul.co.id/${item?.image}`} 
+                                    price={item?.harga} 
+                                />
+                                <Gap width={15}/>
                             </>
-                            : 
-                            <>
-                            <Cards type="placeholder" width={115} />
-                            <Gap width={15}/>
-                            <Cards type="placeholder" width={115} />
-                            <Gap width={15}/>
-                            <Cards type="placeholder" width={115} />
-                            </>
-                            
                         }
-                    </ScrollView>
+                        ListEmptyComponent={()=>
+                            <>
+                                <Cards type="placeholder" width={115} />
+                                <Gap width={15}/>
+                                <Cards type="placeholder" width={115} />
+                                <Gap width={15}/>
+                                <Cards type="placeholder" width={115} />
+                            </>
+                        }
+                    />
                     <Gap height={20}/>
                     <Text style={{fontFamily: 'Nunito-Regular'}}>Category Course</Text>
-                    {
-                        !loaderCatgory ?
-                        <>
-                        {
-                            category.map((e,i)=>{
-                                return(
-                                    <>
-                                    <Gap key={i} height={15}/>
-                                        <List
-                                        key={i} 
-                                        onPress={()=>{navigation.navigate('Categorycourse',{'id_category' : e.id_category})}} 
-                                        title={e.category_name} 
-                                        count={e.created_at} 
-                                        icon={`https://service.ekskul.co.id/${e.icon_category}`} />
-                                    <Gap height={15}/>
-                                    </>
-                                )
-                            })
+                    <FlatList
+                        data={category}
+                        keyExtractor={(item,index)=> index.toString()}
+                        renderItem={({item})=>
+                            <>
+                                <Gap height={15}/>
+                                <List
+                                    onPress={()=>{navigation.navigate('Categorycourse',{'id_category' : item.id_category})}} 
+                                    title={item.category_name} 
+                                    count={item.created_at} 
+                                    icon={`https://service.ekskul.co.id/${item.icon_category}`} />
+                                <Gap height={15}/>
+                            </>
                         }
-                        </>
-                        :
-                        <>
-                        <Gap height={20}/>
-                        <List type="placeholder"/>
-                        <Gap height={20}/>
-                        <List type="placeholder"/>
-                        <Gap height={20}/>
-                        <List type="placeholder"/>
-                        <Gap height={20}/>
-                        </>
-                    }
+                        ListEmptyComponent={()=>
+                            <>
+                                <Gap height={20}/>
+                                <List type="placeholder"/>
+                                <Gap height={20}/>
+                                <List type="placeholder"/>
+                                <Gap height={20}/>
+                                <List type="placeholder"/>
+                                <Gap height={20}/>
+                            </>
+                        }
+                    />
                 </ScrollView>
             </View>
         </View>
