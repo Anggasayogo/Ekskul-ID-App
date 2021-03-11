@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import Swiper from 'react-native-swiper'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Cards, Carousel, Gap, List } from '../../components'
 
 const Home = ({navigation}) => {
     const stateGlobal = useSelector(state => state);
+    const logins = useSelector(state => state.loginReducer)
     // banner
     const [baner,setBaner] = useState([]);
     const [banerloader,setBanerLoader] = useState(true)
@@ -23,7 +24,8 @@ const Home = ({navigation}) => {
 
     useEffect(()=>{
         const _validasisession = async ()=>{
-            const isLogin = await AsyncStorage.getItem('api_token')
+            // const isLogin = logins?.data?.api_token
+            const isLogin = logins?.data?.api_token
             if(!isLogin){
                 navigation.replace("Login")
             }
@@ -31,7 +33,7 @@ const Home = ({navigation}) => {
         _validasisession();
 
         const _getbaner = async () => {
-            const api_token = await AsyncStorage.getItem('api_token')
+            const api_token = logins?.data?.api_token
             Axios.get('https://service.ekskul.co.id/api/v1/setings',{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
@@ -43,7 +45,7 @@ const Home = ({navigation}) => {
         _getbaner();
 
         const _getCourseToprate = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token')
+            const api_token = logins?.data?.api_token
             const id_user = await AsyncStorage.getItem('id_user')
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
@@ -56,7 +58,7 @@ const Home = ({navigation}) => {
         _getCourseToprate()
 
         const _getCageories = async ()=>{
-            const api_token = await AsyncStorage.getItem('api_token')
+            const api_token = logins?.data?.api_token
             Axios.get('https://service.ekskul.co.id/api/v1/category',{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })

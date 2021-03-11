@@ -6,11 +6,12 @@ import { StyleSheet } from 'react-native'
 import storeConfig from './redux/store'
 import { Provider } from 'react-redux'
 import Routes from './routes'
+import { navigationRef } from './services/NavigationService'
 
 const MainApp = () => {
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Routes/>
       </NavigationContainer>
       <FlashMessage position="top"/>

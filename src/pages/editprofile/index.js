@@ -4,39 +4,15 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { IcUser, IcEditprofile } from '../../assets'
 import { Btn, Gap, Inputs } from '../../components'
 import { apply } from 'osmicsx'
-import { RNCamera } from 'react-native-camera'
 
 const EditProfile = ({navigation}) => {
     // const [ref,setRef] = useState(false)
     return (
         <View style={styles.pages}>
-            <RNCamera
-                ref={ref => {
-                    this.camera = ref;
-                }}
-                style={styles.preview}
-                type={RNCamera.Constants.Type.back}
-                flashMode={RNCamera.Constants.FlashMode.on}
-                androidCameraPermissionOptions={{
-                    title: 'Permission to use camera',
-                    message: 'We need your permission to use your camera',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
-                }}
-                androidRecordAudioPermissionOptions={{
-                    title: 'Permission to use audio recording',
-                    message: 'We need your permission to use your audio',
-                    buttonPositive: 'Ok',
-                    buttonNegative: 'Cancel',
-                }}
-                onGoogleVisionBarcodesDetected={({ barcodes }) => {
-                    console.log(barcodes);
-                }}
-            ></RNCamera>
-            {/* <TouchableOpacity style={apply("absolute pl-16 pt-16 tems-center")}>
+            <TouchableOpacity style={apply("absolute pl-16 pt-16 tems-center")}>
                 <Image source={IcEditprofile} style={{width: 24, height: 24, borderRadius: 9999, backgroundColor: 'red', margin: 10}} />
-            </TouchableOpacity> */}
-            {/* <ScrollView showsVerticalScrollIndicator={false}>
+            </TouchableOpacity>
+            <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
                 <Gap height={50}/>
                 <View>
@@ -58,7 +34,7 @@ const EditProfile = ({navigation}) => {
                 <Gap height={20} /> 
                 <Btn title="Update" height={45} />
             </View>
-            </ScrollView> */}
+            </ScrollView>
         </View>
     )
 }

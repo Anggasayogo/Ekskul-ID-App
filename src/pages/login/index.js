@@ -43,11 +43,12 @@ const Login = ({navigation}) => {
                         password : form.password,
                     }
                 dispatch(loginActions(data))
-                AsyncStorage.setItem('api_token',logins.data.api_token)
-                AsyncStorage.setItem('email',logins.data.data.email)
-                AsyncStorage.setItem('username',logins.data.data.name)
-                AsyncStorage.setItem('id_user',logins.data.data.id)
-                navigation.replace('MainApp');
+                // AsyncStorage.setItem('api_token',logins.data.api_token)
+                // AsyncStorage.setItem('email',logins.data.data.email)
+                // AsyncStorage.setItem('username',logins.data.data.name)
+                // AsyncStorage.setItem('id_user',logins.data.data.id)
+                console.log("Asuuu",logins)
+                // navigation.replace('MainApp');
                 
             }
 

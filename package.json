@@ -19,7 +19,6 @@
     "osmicsx": "^0.5.1",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-camera": "^3.40.0",
     "react-native-flash-message": "^0.1.17",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-linear-gradient": "^2.5.6",

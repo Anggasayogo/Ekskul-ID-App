@@ -1,5 +1,6 @@
 import api from '../../services/Api'
 import * as Types from '../constant/actionTypes'
+import * as NavigationService from '../../services/NavigationService'
 
 export const postLoginRequest = ()=> ({
     type : Types.POST_LOGIN_REQUEST
@@ -21,11 +22,10 @@ export const loginActions = (data)=>{
         api.postLogin(data)
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
-            console.log("Success Login",response?.data) 
+            NavigationService.navigate('Home')
         })
         .catch((error) =>{ 
             dispatch(postLoginFailure(error))
-            console.log("Ggagl login",error) 
         })
     }
 }
