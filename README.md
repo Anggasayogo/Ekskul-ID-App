@@ -30,11 +30,9 @@ npx react-native run-android
 ```
 
 Lalu akan muncul seperti ini
-![](dist/images/gambar1.jpg)
-![](dist/images/gambar2.jpg)
-![](dist/images/gambar3.jpg)
-![](dist/images/gambar4.jpg)
-![](dist/images/gambar5.jpg)
-![](dist/images/gambar6.jpg)
-![](dist/images/gambar7.jpg)
-![](dist/images/gambar8.jpg)
+
+|                                          |                                          |                                          |                                          |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| ![screenshots1](dist/images/gambar1.jpg) | ![screenshots2](dist/images/gambar2.jpg) | ![screenshots3](dist/images/gambar3.jpg) | ![screenshots4](dist/images/gambar4.jpg) |
+| ![screenshots5](dist/images/gambar5.jpg) | ![screenshots6](dist/images/gambar6.jpg) | ![screenshots7](dist/images/gambar7.jpg) | ![screenshots8](dist/images/gambar8.jpg) |
+|                                          |                                          |                                          |                                          |
