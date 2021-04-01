@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { PersistGate } from 'redux-persist/integration/react'
 import FlashMessage from 'react-native-flash-message'
@@ -7,6 +7,7 @@ import storeConfig from './redux/store'
 import { Provider } from 'react-redux'
 import Routes from './routes'
 import { navigationRef } from './services/NavigationService'
+import SentryConfig from './config/Sentry'
 
 const MainApp = () => {
   return (
@@ -22,6 +23,11 @@ const MainApp = () => {
 const { store, persistor } = storeConfig()
 
 const App = ()=>{
+
+  useEffect(()=>{
+    SentryConfig()
+  },[])
+
   return(
     <Provider store={store}>
       <PersistGate persistor={persistor}>

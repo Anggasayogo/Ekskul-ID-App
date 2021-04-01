@@ -8,6 +8,8 @@ target 'Ekskul' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
+
   target 'EkskulTests' do
     inherit! :complete
     # Pods for testing
