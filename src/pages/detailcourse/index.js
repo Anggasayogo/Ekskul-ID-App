@@ -16,7 +16,7 @@ const DetailCourse = ({navigation,route}) => {
     useEffect(()=>{
        const _getDetailsCourse = async ()=>{
             const api_token = logins?.data?.api_token
-            const id_user = logins?.data?.id_user
+            const id_user = logins?.data?.data?.id
             const email = logins?.data?.email
            Axios.get(`https://service.ekskul.co.id/api/v1/playlists/${id_playlist}`,{
             headers: {"Authorization" : `Bearer ${api_token}`}

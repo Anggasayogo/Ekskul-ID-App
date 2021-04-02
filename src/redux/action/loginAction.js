@@ -1,6 +1,7 @@
 import api from '../../services/Api'
 import * as Types from '../constant/actionTypes'
 import * as NavigationService from '../../services/NavigationService'
+import AsyncStorage from '@react-native-community/async-storage'
 
 export const postLoginRequest = ()=> ({
     type : Types.POST_LOGIN_REQUEST
@@ -22,6 +23,7 @@ export const loginActions = (data)=>{
         api.postLogin(data)
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
+            AsyncStorage.setItem('credential',response?.data)
             NavigationService.navigate('MainApp')
         })
         .catch((error) =>{ 

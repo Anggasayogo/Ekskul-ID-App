@@ -9,7 +9,7 @@ import Routes from './routes'
 import { navigationRef } from './services/NavigationService'
 import SentryConfig from './config/Sentry'
 
-const MainApp = () => {
+const MainApp = (props) => {
   return (
     <>
       <NavigationContainer ref={navigationRef}>
@@ -25,6 +25,9 @@ const { store, persistor } = storeConfig()
 const App = ()=>{
 
   useEffect(()=>{
+    if(__DEV__) {
+      import('./config/ReactotronConfig').then(() => console.log('Reactotron Configured'))
+    }
     SentryConfig()
   },[])
 

@@ -47,7 +47,6 @@ const Login = ({navigation}) => {
                 // AsyncStorage.setItem('email',logins.data.data.email)
                 // AsyncStorage.setItem('username',logins.data.data.name)
                 // AsyncStorage.setItem('id_user',logins.data.data.id)
-                console.log("Asuuu",logins)
                 // navigation.replace('MainApp');
                 
             }

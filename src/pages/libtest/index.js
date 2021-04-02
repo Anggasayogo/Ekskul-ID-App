@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import WebView from 'react-native-webview';
 import { useSelector } from 'react-redux';
@@ -40,22 +40,11 @@ const Libtest = ({route,navigation}) => {
         }
         _getsnapUrl()
     },[])
-    const onloadigs = () =>{
-    return(
-            <ActivityIndicator
-                color="blue"
-                size="large"
-                style={{justifyContent: 'center',alignItems: 'center',flex: 1}}
-            />
-        )
-    }
 
-    const hanldeErr = ()=>{
-        navigation.goBack();
-    }
     return (
         <>
-         {
+        <StatusBar backgroundColor="black"/>
+        {
             loader && <Spinner visible={true}
                 textContent={'Loading...'}
             />
@@ -64,7 +53,7 @@ const Libtest = ({route,navigation}) => {
                 source={{ uri: snapurl }}
                 ref={webViewRef}
                 startInLoadingState={true}
-                renderLoading={onloadigs}
+                style={{marginTop: 30}}
             />
         </>
     )

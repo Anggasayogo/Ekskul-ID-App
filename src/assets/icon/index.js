@@ -30,8 +30,10 @@ import Pause from './pause.svg'
 import Sudahditonton from './sudahditonton.svg'
 import BackWhite from './back_white.svg'
 import IcSend from './send.svg'
+import IcEmty from './emty.png'
 
 export{
+    IcEmty,
     IcSend,
     IcTicket,
     BackWhite,

@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import Axios from 'axios'
 import React, { useEffect, useState, useCallback } from 'react'
-import { FlatList, StyleSheet, View, Text } from 'react-native'
+import { FlatList, StyleSheet, View, Text, Image } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
+import { IcEmty } from '../../assets'
 import { Gap, List } from '../../components'
 
 const Myplaylist = ({navigation}) => {
@@ -15,7 +16,7 @@ const Myplaylist = ({navigation}) => {
 
         const _myCourse = async ()=>{
             const api_token = logins?.data?.api_token
-            const id_user = logins?.data?.id_user
+            const id_user = logins?.data?.data?.id
             Axios.get(`https://service.ekskul.co.id/api/v1/orders/${id_user}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
@@ -52,13 +53,21 @@ const Myplaylist = ({navigation}) => {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
                         !loader ?
-                        <>
+                        <View>
                             <FlatList
                                 data={course}
                                 keyExtractor={(item,index)=> index.toString() }
                                 renderItem={({item})=> <RenderMyCourse item={item} /> }
+                                ListEmptyComponent={()=>(
+                                    <View style={{justifyContent: 'center',alignItems: 'center'}}>
+                                        <Image source={IcEmty} style={{width: 100,height: 100,marginTop: 200}}/>
+                                        <Text>Hii. Kamu belum punya playlist Nih</Text>
+                                        <Text>Yu Tambah playlist Barumu</Text>
+                                    </View>
+                                )}
+                                style={{flex: 1}}
                             />
-                        </>
+                        </View>
                         : 
                         <>
                         <Gap height={20} />
