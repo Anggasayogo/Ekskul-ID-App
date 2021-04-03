@@ -15,7 +15,7 @@ const MainApp = (props) => {
       <NavigationContainer ref={navigationRef}>
         <Routes/>
       </NavigationContainer>
-      <FlashMessage position="top"/>
+      <FlashMessage position="top" animated={true} floating={true}/>
     </>
   )
 }

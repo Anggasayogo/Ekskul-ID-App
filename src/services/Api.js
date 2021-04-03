@@ -13,5 +13,5 @@ const headers = {
 }
 
 export default api = {
-    postLogin: data => axios.post(`${publicURL}/login`, data )
+    postLogin: (data) => axios.post(`${publicURL}/login`,data)
 }

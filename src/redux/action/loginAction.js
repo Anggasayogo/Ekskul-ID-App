@@ -2,6 +2,7 @@ import api from '../../services/Api'
 import * as Types from '../constant/actionTypes'
 import * as NavigationService from '../../services/NavigationService'
 import AsyncStorage from '@react-native-community/async-storage'
+import { ErrorAlert, SuccessHandler } from '../../Helper/AlertHanlder'
 
 export const postLoginRequest = ()=> ({
     type : Types.POST_LOGIN_REQUEST
@@ -29,7 +30,7 @@ export const loginActions = (data)=>{
         })
         .catch((error) =>{ 
             dispatch(postLoginFailure(error))
-            NavigationService.goBack()
+            ErrorAlert("Upss.. Email atau Password Salah!")
         })
     }
 }

@@ -38,17 +38,10 @@ const Login = ({navigation}) => {
                     type : 'warning'
                 });
             }else{
-                const data = {
-                        email : form.email,
-                        password : form.password,
-                    }
-                dispatch(loginActions(data))
-                // AsyncStorage.setItem('api_token',logins.data.api_token)
-                // AsyncStorage.setItem('email',logins.data.data.email)
-                // AsyncStorage.setItem('username',logins.data.data.name)
-                // AsyncStorage.setItem('id_user',logins.data.data.id)
-                // navigation.replace('MainApp');
-                
+                const formdata = new FormData()
+                formdata.append("email",form?.email)
+                formdata.append("password",form?.password)
+                dispatch(loginActions(formdata))
             }
 
         }
