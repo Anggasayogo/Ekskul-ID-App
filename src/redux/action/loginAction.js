@@ -24,10 +24,12 @@ export const loginActions = (data)=>{
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
             AsyncStorage.setItem('credential',response?.data)
+            AsyncStorage.setItem('id_user',response?.data?.data?.id_user)
             NavigationService.navigate('MainApp')
         })
         .catch((error) =>{ 
             dispatch(postLoginFailure(error))
+            NavigationService.goBack()
         })
     }
 }

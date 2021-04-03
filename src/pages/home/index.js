@@ -23,8 +23,8 @@ const Home = ({navigation}) => {
     const [loaderCatgory,setLoaderCategory] = useState(true)
 
     useEffect(()=>{
-        const _validasisession = async ()=>{
-            // const isLogin = logins?.data?.api_token
+        console.tron.log("Loginss",logins)
+        const _validasisession = () =>{
             const isLogin = logins?.data?.api_token
             if(!isLogin){
                 navigation.replace("Login")
@@ -74,7 +74,7 @@ const Home = ({navigation}) => {
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <Gap height={15} />
-                    <Text style={{fontSize: 14,fontFamily: 'Nunito-Bold'}}>{stateGlobal.welcome}</Text>
+                    <Text style={{fontSize: 18,fontFamily: 'Nunito-Bold'}}>Hi {logins?.data?.data?.name} Welcomeback!</Text>
                     <Gap height={15}/>
                     <View style={styles.wrapslide}>
                         {
@@ -130,7 +130,7 @@ const Home = ({navigation}) => {
                                 <List
                                     onPress={()=>{navigation.navigate('Categorycourse',{'id_category' : item.id_category})}} 
                                     title={item.category_name} 
-                                    count={item.created_at} 
+                                    count="available" 
                                     icon={`https://service.ekskul.co.id/${item.icon_category}`} />
                                 <Gap height={15}/>
                             </>

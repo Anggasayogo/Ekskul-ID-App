@@ -16,13 +16,13 @@ const Myplaylist = ({navigation}) => {
 
         const _myCourse = async ()=>{
             const api_token = logins?.data?.api_token
-            const id_user = logins?.data?.data?.id
-            Axios.get(`https://service.ekskul.co.id/api/v1/orders/${id_user}`,{
+            const id_user = await AsyncStorage.getItem('id_user')
+            Axios.get(`https://service.ekskul.co.id/api/v1/orders`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
             .then(res=>{
                 setCourse(res.data.data)
-                console.log("Dtaanyah",res.data.data)
+                console.tron.log("Dtaanyah",res.data.data)
                 setLoader(false)
                 console.log(id_user)
             })

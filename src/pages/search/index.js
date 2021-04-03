@@ -40,7 +40,7 @@ const Search = ({navigation}) => {
     useEffect(()=>{
         const _getCourseToprate = async ()=>{
             const api_token = logins?.data?.api_token
-            const id_user = logins?.data?.id_user
+            const id_user = await AsyncStorage.getItem('id_user')
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}?page=${page}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
