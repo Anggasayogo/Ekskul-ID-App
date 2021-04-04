@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Axios from 'axios'
 import React, { useCallback, useEffect, useState } from 'react'
 import { ActivityIndicator, FlatList, RefreshControl, StyleSheet, TouchableOpacity, View } from 'react-native'
@@ -24,7 +24,7 @@ const Search = ({navigation}) => {
 
     const onSearch = async ()=>{
         setSubmit(true)
-        const api_token = logins?.data?.api_token
+        const api_token = logins?.data?.data?.token
         Axios.post('https://service.ekskul.co.id/api/v1/search/playlist',{
             keyword : form.keyword
         },
@@ -39,7 +39,7 @@ const Search = ({navigation}) => {
 
     useEffect(()=>{
         const _getCourseToprate = async ()=>{
-            const api_token = logins?.data?.api_token
+            const api_token = logins?.data?.data?.token
             const id_user = await AsyncStorage.getItem('id_user')
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}?page=${page}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}

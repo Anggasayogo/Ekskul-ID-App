@@ -1,13 +1,12 @@
 import React from 'react'
-import { 
+import {
     TouchableOpacity,
-    ScrollView, 
-    StyleSheet, 
+    StyleSheet,
+    ScrollView,
     Image, 
     Text, 
-    View 
+    View
 } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import { showMessage } from 'react-native-flash-message'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'

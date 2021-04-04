@@ -1,10 +1,9 @@
-import AsyncStorage from '@react-native-community/async-storage'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { ImageBackground, StatusBar, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'
-import { DuDrone, IcLabel, IcCheck } from '../../assets'
+import { IcCheck, IcLabel } from '../../assets'
 import { Back, Btn, Gap } from '../../components'
 
 const DetailCourse = ({navigation,route}) => {

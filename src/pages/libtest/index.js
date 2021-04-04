@@ -1,11 +1,9 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, StatusBar, StyleSheet, View } from 'react-native';
+import { StatusBar, StyleSheet } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
 import WebView from 'react-native-webview';
 import { useSelector } from 'react-redux';
-import Back from '../../components/atom/back';
 
 const Libtest = ({route,navigation}) => {
     const logins = useSelector(state => state.loginReducer)

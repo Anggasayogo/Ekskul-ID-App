@@ -1,17 +1,24 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
 
-const publicURL = 'http://service.ekskul.co.id/api' 
-const baseURL = 'http://service.ekskul.co.id/api/v1' 
+const publicURL = 'https://service.ekskul.co.id/api' 
+const privateURL = 'https://service.ekskul.co.id/api/v1' 
 
-const retRiveToken = async ()=>{
-    const response = await AsyncStorage.getItem('api_token')
-    return response
+const retRiveToken = async () => {
+    try {
+        const response = await AsyncStorage.getItem('credent')
+        const headers = {
+            headers: {"Authorization" : `Bearer ${response}`}
+        }
+        return headers
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const headers = {
-    headers: {"Authorization" : `Bearer ${retRiveToken}`}
-}
-
+retRiveToken()
+// Calling Api
 export default api = {
-    postLogin: (data) => axios.post(`${publicURL}/login`,data)
+    postLogin: (data) => axios.post(`${publicURL}/login`,data),
+    getBaner: () => axios.get(`${privateURL}/setings`, ),
 }

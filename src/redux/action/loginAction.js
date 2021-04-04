@@ -1,7 +1,7 @@
 import api from '../../services/Api'
 import * as Types from '../constant/actionTypes'
 import * as NavigationService from '../../services/NavigationService'
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ErrorAlert, SuccessHandler } from '../../Helper/AlertHanlder'
 
 export const postLoginRequest = ()=> ({
@@ -24,8 +24,8 @@ export const loginActions = (data)=>{
         api.postLogin(data)
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
-            AsyncStorage.setItem('credential',response?.data)
-            AsyncStorage.setItem('id_user',response?.data?.data?.id_user)
+            // AsyncStorage.setItem('id_user',response?.data?.data?.user?.id)
+            AsyncStorage.setItem('credent',response.data.data.token)
             NavigationService.navigate('MainApp')
         })
         .catch((error) =>{ 

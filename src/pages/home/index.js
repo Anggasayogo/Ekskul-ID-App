@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import Swiper from 'react-native-swiper'
 import { useSelector, useDispatch } from 'react-redux'
 import { Cards, Carousel, Gap, List } from '../../components'
+import { getBanerActions } from '../../redux/action/UtilsAction'
 
 const Home = ({navigation}) => {
     const stateGlobal = useSelector(state => state);
@@ -21,31 +22,32 @@ const Home = ({navigation}) => {
     // category
     const [category,setCategory] = useState([])
     const [loaderCatgory,setLoaderCategory] = useState(true)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
-        console.tron.log("Loginss",logins)
         const _validasisession = () =>{
-            const isLogin = logins?.data?.api_token
+            const isLogin = logins?.data?.data?.token
             if(!isLogin){
                 navigation.replace("Login")
             }
         }
         _validasisession();
 
-        const _getbaner = async () => {
-            const api_token = logins?.data?.api_token
-            Axios.get('https://service.ekskul.co.id/api/v1/setings',{
-                headers: {"Authorization" : `Bearer ${api_token}`}
-            })
-            .then(res=>{
-                setBaner(res.data.data)
-                setBanerLoader(false)
-            })
-        }
-        _getbaner();
+        // const _getbaner = async () => {
+        //     const api_token = logins?.data?.data?.token
+        //     Axios.get('https://service.ekskul.co.id/api/v1/setings',{
+        //         headers: {"Authorization" : `Bearer ${api_token}`}
+        //     })
+        //     .then(res=>{
+        //         setBaner(res.data.data)
+        //         setBanerLoader(false)
+        //     })
+        // }
+        // _getbaner();
+        dispatch(getBanerActions())
 
         const _getCourseToprate = async ()=>{
-            const api_token = logins?.data?.api_token
+            const api_token = logins?.data?.data?.token
             const id_user = await AsyncStorage.getItem('id_user')
             Axios.get(`https://service.ekskul.co.id/api/v1/playlist/${id_user}`,{
                 headers: {"Authorization" : `Bearer ${api_token}`}
@@ -58,7 +60,7 @@ const Home = ({navigation}) => {
         _getCourseToprate()
 
         const _getCageories = async ()=>{
-            const api_token = logins?.data?.api_token
+            const api_token = logins?.data?.data?.token
             Axios.get('https://service.ekskul.co.id/api/v1/category',{
                 headers: {"Authorization" : `Bearer ${api_token}`}
             })
