@@ -11,7 +11,7 @@ import { showMessage } from 'react-native-flash-message'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
 import { IcLogo } from '../../assets'
-import { Btn, Gap, Inputs } from '../../components'
+import { Btn, Gap, Inputs, InputText, InputPassword } from '../../components'
 import { loginActions } from '../../redux/action/loginAction'
 import { useForm } from '../../utils'
 
@@ -59,13 +59,17 @@ const Login = ({navigation}) => {
                 <Image source={IcLogo} style={styles.hero}/>
                 <Gap height={50}/>
                 <Gap height={40}/>
-                <Inputs placeholder="input email" title="Email" 
-                    onChangeText={(value)=>{setForm('email',value)}} 
+                <InputText 
+                    name="email"
+                    label="Masukan Email"
                     value={form.email}
+                    onChangeText={(value)=> setForm('email',value)}
+                    returnKeyType="next"
                 />
                 <Gap height={30}/>
-                <Inputs placeholder="input password" 
-                    title="Password" type="password" 
+                <InputPassword
+                    name="Password"
+                    label="Masukan Password"
                     onChangeText={(value)=>setForm('password',value)}
                     value={form.password}
                 />
