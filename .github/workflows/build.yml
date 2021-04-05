@@ -1,39 +1,38 @@
-name: react-native-android-build-apk
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+name: Android
+
+on: [pull_request]
+
 jobs:
-  install-and-test:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Install npm dependencies
-        run: |
-          npm install
-  build-android:
-    needs: install-and-test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install npm dependencies
-        run: |
-          npm install
-      - name: Build Android Release
-        run: |
-          cd android && chmod +x gradlew && ./gradlew assembleRelease -x bundleReleaseJsAndAsset
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+      - name: Use Node.js v12
+        uses: actions/setup-node@v1
         with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release
+          node-version: 12.x
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - run: npx jetifier
+      - run: ./gradlew assembleRelease
+        working-directory: android
+        name: Build Android apk (debug)
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-apk
+          path: '**/*.apk'
 
       - name: Build Reporting
-        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -f "chat_id=<-1001319828801>" -F document=@"/home/runner/work/Ekskul-ID-App/Ekskul-ID-App/android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot<1736760969:AAEd4z6cZMnthvfkO5TnRGCXejZg3X3JSOg>/sendDocument
+        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-1001319828801" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot1736760969:AAEd4z6cZMnthvfkO5TnRGCXejZg3X3JSOg/sendDocument
 
-      - name: Building Filure
+      - name: Build failure
         if: failure()
         run: sh .ci-message.sh ❌
