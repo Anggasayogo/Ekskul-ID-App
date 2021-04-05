@@ -32,11 +32,8 @@ jobs:
           path: android/app/build/outputs/apk/release
 
       - name: Build Reporting
-        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -f "chat_id=<-1001319828801>"
-        -F document=@"android/app/build/outputs/apk/release/app-release.apk"
-        https://api.telegram.org/bot<1736760969:AAEd4z6cZMnthvfkO5TnRGCXejZg3X3JSOg>/sendDocument
+        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -f "chat_id=<-1001319828801>" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot<1736760969:AAEd4z6cZMnthvfkO5TnRGCXejZg3X3JSOg>/sendDocument
 
       - name: Building Filure
         if: failure()
         run: sh .ci-message.sh ❌
-
