@@ -12,7 +12,7 @@ import Livestream from './livestream';
 import Beforestream from './beforestream';
 import categorycourse from './categorycourse';
 import Libtest from './libtest';
-
+import OtpScreen from './otpScreen'
 
 export{
     Libtest,
@@ -29,4 +29,5 @@ export{
     Profile,
     DetailCourse,
     ActionPlay,
+    OtpScreen,
 }

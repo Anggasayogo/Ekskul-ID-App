@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "837492392335",
+    "project_id": "ekskul-4cf52",
+    "storage_bucket": "ekskul-4cf52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837492392335:android:d9fd70bce7b48a97150bfa",
+        "android_client_info": {
+          "package_name": "com.ekskul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837492392335-d366pcci30kdhbq7i921n7ekcc1cba3c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDIoKHgoSLALQCW3frZ_WN6kMidweD8gU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837492392335-d366pcci30kdhbq7i921n7ekcc1cba3c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

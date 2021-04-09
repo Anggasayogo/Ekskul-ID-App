@@ -6453,6 +6453,11 @@ react-native-loading-spinner-overlay@^2.0.0:
   dependencies:
     prop-types "^15.6.2"
 
+react-native-otp-inputs@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-otp-inputs/-/react-native-otp-inputs-7.0.3.tgz#f341284ff5f865239c59f0aad008994e26b114cb"
+  integrity sha512-s+Bfcct2xpNSOqO9EiGjDh0RzwjDuiNW+nH41BzUz3ahL2iHo073RutHtb4wrvHX9r8f9aJNsfI9HtVCS80slA==
+
 react-native-reanimated@^1.13.1:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.13.2.tgz#1ae5457b24b4913d173a5a064bb28eae7783d293"

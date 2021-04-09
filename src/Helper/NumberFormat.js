@@ -4,7 +4,6 @@ export const strReplace = (source, replace, replaceWith) => {
     for (i; i < value.length; i++) {
       value = value.replace(replace, replaceWith)
     }
-    // console.log(value)
     return value;
   }
   

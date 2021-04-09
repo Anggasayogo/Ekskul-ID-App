@@ -22,7 +22,6 @@ const Myplaylist = ({navigation}) => {
             })
             .then(res=>{
                 setCourse(res.data.data)
-                console.tron.log("Dtaanyah",res.data.data)
                 setLoader(false)
                 console.log(id_user)
             })

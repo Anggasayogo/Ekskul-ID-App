@@ -51,7 +51,6 @@ const Search = ({navigation}) => {
             })
         }
         _getCourseToprate()
-        console.log(submit)
     },[page])
 
 

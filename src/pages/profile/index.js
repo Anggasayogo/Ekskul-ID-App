@@ -13,7 +13,6 @@ const Profile = ({navigation}) => {
     const [loading,setLoading] = useState(false);
 
     useEffect(()=>{
-        console.log(logins?.data)
         const _getname = async ()=>{
             const name = logins?.data?.data?.name
             setNama(name);

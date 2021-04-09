@@ -12,6 +12,7 @@ import {
     Livestream, 
     Login, 
     Myplaylist, 
+    OtpScreen, 
     Profile, 
     Register, 
     Search, 
@@ -37,7 +38,7 @@ const MainApp = ()=>{
 
 const Routes = () => {
     return (
-        <Stack.Navigator initialRouteName={Splash}>
+        <Stack.Navigator initialRouteName={OtpScreen}>
             <Stack.Screen name="Splash" component={Splash} options={{headerShown: false}} />
             <Stack.Screen name="Autentic" component={Autentic} options={{headerShown: false}} />
             <Stack.Screen name="Login" component={Login} options={{headerShown: false}} />
@@ -50,6 +51,7 @@ const Routes = () => {
             <Stack.Screen name="Beforestream" component={Beforestream} options={{headerShown: false}} />
             <Stack.Screen name="Categorycourse" component={CategoryCourse} options={{headerShown: false}} />
             <Stack.Screen name="Libtest" component={Libtest} options={{headerShown: false}} />
+            <Stack.Screen name="OtpScreen" component={OtpScreen} options={{headerShown: false}}/>
         </Stack.Navigator>
     )
 }
