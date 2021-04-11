@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native'
+import { apply } from '../../../themes/OsmiProvider';
 import { Tabitem } from '../../atom';
 
 const BotoomTabNavigator = ({ state, descriptors, navigation }) => {
     return (
-        <View style={styles.container}>
+        <View style={apply("shadow-lg row justify-between bg-white ph-30 pv-10 ")}>
           {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
@@ -48,7 +49,7 @@ export default BotoomTabNavigator
 const styles = StyleSheet.create({
     container:{
         flexDirection: 'row',
-        backgroundColor: "#262F56",
+        backgroundColor: "white",
         justifyContent: 'space-between',
         paddingHorizontal: 30,
         paddingVertical: 10

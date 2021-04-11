@@ -22,7 +22,6 @@ const Myplaylist = ({navigation}) => {
             })
             .then(res=>{
                 setCourse(res.data.data)
-                console.tron.log("Dtaanyah",res.data.data)
                 setLoader(false)
                 console.log(id_user)
             })
@@ -91,7 +90,7 @@ export default Myplaylist
 const styles = StyleSheet.create({
     pages:{
         flex: 1,
-        backgroundColor: '#262F56',
+        backgroundColor: 'white',
     },
     container:{
         flex: 1,

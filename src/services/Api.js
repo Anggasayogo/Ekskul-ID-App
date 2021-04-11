@@ -1,24 +1,28 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const publicURL = 'https://service.ekskul.co.id/api' 
-const privateURL = 'https://service.ekskul.co.id/api/v1' 
+const publicURL = 'https://refactor.ekskul.co.id/api' 
+const privateURL = 'https://refactor.ekskul.co.id/api/v1'
 
-const retRiveToken = async () => {
-    try {
-        const response = await AsyncStorage.getItem('credent')
-        const headers = {
-            headers: {"Authorization" : `Bearer ${response}`}
-        }
-        return headers
-    } catch (error) {
-        console.log(error)
-    }
-}
+let buildingToken = []
 
-retRiveToken()
-// Calling Api
+AsyncStorage.getItem('credent')
+.then((response)=>{
+    (data) => axios.post(`${publicURL}/login`,data)
+    buildingToken.push(`asuu`)
+})
+
+AsyncStorage.getItem('credent',(err,token)=>(
+    buildingToken.push(token)
+))
+
 export default api = {
+    // Auth
     postLogin: (data) => axios.post(`${publicURL}/login`,data),
-    getBaner: () => axios.get(`${privateURL}/setings`, ),
+    postRegister: (data) => axios.post(`${publicURL}/register`,data),
+    postVerifyOtp : (data) => axios.post(`${publicURL}/verify`,data, { headers: {"Authorization" : `Bearer ${token}`} }),
+
+    //Home
+    getBaner: () => axios.get(`${privateURL}/setings`, { headers: {"Authorization" : `Bearer ${token}`} }),
 }
+

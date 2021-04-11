@@ -51,7 +51,6 @@ const Search = ({navigation}) => {
             })
         }
         _getCourseToprate()
-        console.log(submit)
     },[page])
 
 
@@ -213,7 +212,7 @@ export default Search
 const styles = StyleSheet.create({
     pages:{
         flex: 1,
-        backgroundColor: '#262F56',
+        backgroundColor: 'white',
     },
     wrapper:{
         backgroundColor: 'white',

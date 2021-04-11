@@ -18,15 +18,14 @@ export const postLoginFailure = (error)=> ({
     error : error
 })
 
-export const loginActions = (data)=>{
+export const loginActions =  (data)=>{
     return async (dispatch) => {
         dispatch(postLoginRequest())
         api.postLogin(data)
         .then((response)=> {
             dispatch(postLoginSuccess(response?.data))
-            // AsyncStorage.setItem('id_user',response?.data?.data?.user?.id)
             AsyncStorage.setItem('credent',response.data.data.token)
-            NavigationService.navigate('MainApp')
+            NavigationService.replace('MainApp')
         })
         .catch((error) =>{ 
             dispatch(postLoginFailure(error))

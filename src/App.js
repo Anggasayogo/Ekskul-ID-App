@@ -29,7 +29,7 @@ const App = ()=>{
       import('./config/ReactotronConfig').then(() => console.log('Reactotron Configured'))
     }
     SentryConfig()
-  },[])
+  },[__DEV__])
 
   return(
     <Provider store={store}>

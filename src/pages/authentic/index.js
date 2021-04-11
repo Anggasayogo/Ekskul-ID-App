@@ -9,7 +9,7 @@ const Autentic = ({navigation}) => {
             <Image source={ImAuth} style={styles.hero} />
             <Gap height={50}/>
             <Btn 
-                width={270} 
+                width={300} 
                 height={45} 
                 title="Login" 
                 fontSize={18} 
@@ -18,7 +18,7 @@ const Autentic = ({navigation}) => {
             />
             <Gap height={20}/>
             <Btn 
-                width={270} 
+                width={300} 
                 height={45} 
                 title="Register" 
                 fontSize={18} 

@@ -1,101 +1,112 @@
-import React from 'react'
-import {
+import React, { useCallback } from 'react'
+import { 
+    KeyboardAvoidingView, 
     TouchableOpacity,
-    StyleSheet,
-    ScrollView,
+    SafeAreaView,
+    ScrollView, 
+    StatusBar, 
     Image, 
     Text, 
-    View
+    View,
+    ActivityIndicator,
 } from 'react-native'
-import { showMessage } from 'react-native-flash-message'
-import Spinner from 'react-native-loading-spinner-overlay'
 import { useDispatch, useSelector } from 'react-redux'
-import { IcLogo } from '../../assets'
-import { Btn, Gap, Inputs } from '../../components'
+import { IcFacebook, IcGoogle, IcLogo } from '../../assets'
+import { InputText, InputPassword } from '../../components'
 import { loginActions } from '../../redux/action/loginAction'
-import { useForm } from '../../utils'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
 
-const Login = ({navigation}) => {
+// styles
+import styles from './loginStyles'
+import { apply } from '../../themes/OsmiProvider'
+
+// Schema
+const Schema = Yup.object().shape({
+    email: Yup.string().required("Email Wajib Diisi").email('Format email tidak sama'),
+    password: Yup.string().required('Wajib diisi').min(6, 'Minimal 6 karakter'),
+})
+  
+
+const Login = props => {
     const logins = useSelector(state => state.loginReducer)
-    const { loading } = logins
     const dispatch = useDispatch()
-    const [form,setForm] = useForm({
-        email : '',
-        password : '',
-    })
-
-    const handleSubmit = ()=>{
-        if(form.email == ''){
-            showMessage({
-                message : 'email/password tidak boeh kosong!',
-                type : 'warning'
-            });
-        }else{
-            if(form.password == ''){
-                showMessage({
-                    message : 'email/password tidak boeh kosong!',
-                    type : 'warning'
-                });
-            }else{
-                const formdata = new FormData()
-                formdata.append("email",form?.email)
-                formdata.append("password",form?.password)
-                dispatch(loginActions(formdata))
-            }
-
-        }
-
+    const handleSubmit = (value) =>{
+      const formdata = new FormData()
+      formdata.append("email", value?.email)
+      formdata.append("password",value?.password)
+      dispatch(loginActions(formdata))
     }
-    return (
-        <View style={styles.pages}>
-            {
-                loading && <Spinner visible={true}
-                    textContent={'Loading...'}
-                    textStyle={styles.spinnerTextStyle}
-                />
-            }
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <Gap height={50}/>
-                <Image source={IcLogo} style={styles.hero}/>
-                <Gap height={50}/>
-                <Gap height={40}/>
-                <Inputs placeholder="input email" title="Email" 
-                    onChangeText={(value)=>{setForm('email',value)}} 
-                    value={form.email}
-                />
-                <Gap height={30}/>
-                <Inputs placeholder="input password" 
-                    title="Password" type="password" 
-                    onChangeText={(value)=>setForm('password',value)}
-                    value={form.password}
-                />
-                <Gap height={40}/>
-                <Btn height={43} title="Login" onPress={handleSubmit}/>
-                <Gap height={40}/>
-                <Text style={{fontFamily: 'Nunito-Regular'}}>
-                    If you no have account ? please
-                </Text>
-                <TouchableOpacity onPress={()=>{navigation.navigate('Register')}}>
-                    <Text style={styles.registext}>Register Here</Text>
-                </TouchableOpacity>
-            </ScrollView>
-        </View>
+
+    const renderForm = formProps =>{
+        const { setFieldValue, errors, values } = formProps
+        const setValue = useCallback(setFieldValue, [])
+        const onSubmit = useCallback((e) => {formProps.handleSubmit(e)}, [])
+    
+        return(
+          <KeyboardAvoidingView style={styles.keyBoard}>
+            <InputText
+              name="email"
+              label="Masukan Email"
+              errors={errors.email}
+              value={values.email}
+              setFieldValue={setValue}
+              returnKeyType="next"
+            />
+            <InputPassword
+              label="Password"
+              name="password"
+              value={values.password}
+              errors={errors.password}
+              setFieldValue={setValue}
+              returnKeyType="next"
+            />
+            <TouchableOpacity disabled={logins?.loading ? true : false} style={styles.button} onPress={onSubmit}>
+              {
+                logins?.loading ? (<ActivityIndicator size="small" color="black"/>) : (<Text style={styles.label}>Login</Text>)
+              }
+            </TouchableOpacity>
+          </KeyboardAvoidingView>
+        )
+      }
+    
+      return (
+        <SafeAreaView style={styles.container}>
+          <StatusBar backgroundColor="white" barStyle="dark-content" />
+          <ScrollView>
+            <View style={apply("p-4")}>
+              <Image source={IcLogo} style={{width: 175,height: 40, marginVertical: 20}}/>
+              {/* <Text style={styles.childTitle}>Selalmat datang di <Text style={apply("font-medium")}>Ekskul</Text> Rasakan belajar dengan materi yang terstruktur dan mudah dipahami</Text> */}
+            </View>
+            <Formik
+              onSubmit={handleSubmit}
+              validationSchema={Schema}
+              initialValues={{
+                email: '',
+                password: '',
+              }}>
+                {formProps => renderForm(formProps)}
+            </Formik>
+            <View style={styles.middle}>
+              <View style={styles.line} />
+              <Text style={styles.or}>Atau</Text>
+            </View>
+            <View style={apply("px-1")}>
+              <TouchableOpacity style={styles.btnSosmed} activeOpacity={0.9}>
+                <Image source={IcGoogle} style={styles.icons}/>
+                <Text style={styles.loginWith}>Daftar Dengan Google</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.btnSosmed} activeOpacity={0.9}>
+                <Image source={IcFacebook} style={styles.icons}/>
+                <Text style={styles.loginWith}>Daftar Dengan Google</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.noHaveAccount}>Belum Punya Akun ? <Text style={apply("font-medium")} onPress={()=> props.navigation.navigate('Register') }>Register</Text></Text>
+            <Text style={styles.privacy}>Dengan masuk atau mendaftar, berarti kamu menyutujui <Text style={apply("font-medium")}>Syarat Ketentuan</Text> dan <Text style={apply("font-medium")}>Kebijakan Privasi</Text></Text>
+          </ScrollView>
+        </SafeAreaView>
     )
 }
 
 export default Login;
-
-const styles = StyleSheet.create({
-    pages:{
-        flex: 1,
-        padding: 15,
-        backgroundColor: 'white'
-    },
-    icGoogle:{width: 46,height: 43},
-    registext: {color: "#F8B459", fontFamily: 'Nunito-Regular'},
-    hero: {width: 200,height: 70},
-    spinnerTextStyle: {
-        color: '#FFF'
-    },
-})
 

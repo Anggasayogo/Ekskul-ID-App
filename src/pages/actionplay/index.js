@@ -52,7 +52,6 @@ const ActionPlay = ({navigation}) => {
   },[])
 
   const playingVideo = (videoId,index) =>{
-      console.log(videoId)
       setActive(index)
       setPlaying(videoId)
   } 

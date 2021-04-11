@@ -1,7 +1,7 @@
 import IcGoogle from './google.png'
-import IcFacebook from './facbook.png'
+import IcFacebook from './facebook.png'
 import InHome from './in_home.svg';
-import InSearch from './in_search.svg';
+import InSearch from './search.svg';
 import InPlay from './in_play.svg';
 import InProfile from './in_profile.svg';
 import IcUser from './user.png';
@@ -14,7 +14,7 @@ import IcRight from './right.svg';
 import IcPrograming from './code.png';
 import IcBusines from './briefcase.png';
 import IcMusic from './music.png';
-import IcLogo from './logoe.png'
+import IcLogo from './logo.png'
 import IcTicket from './ticket.png'
 import IcBack from './back.svg'
 import IcLabel from './label.svg'
@@ -31,8 +31,20 @@ import Sudahditonton from './sudahditonton.svg'
 import BackWhite from './back_white.svg'
 import IcSend from './send.svg'
 import IcEmty from './emty.png'
+import IcBell from './bell.png'
+import IcSerch from './serch.png'
+import IcBahasa from './bahasa.png'
+import IcMultimedia from './multimedia.png'
+import IcMusik from './musik.png'
+import IcEngineer from './teknik.png'
 
 export{
+    IcEngineer,
+    IcMusik,
+    IcMultimedia,
+    IcBahasa,
+    IcSerch,
+    IcBell,
     IcEmty,
     IcSend,
     IcTicket,
