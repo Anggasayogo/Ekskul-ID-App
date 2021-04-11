@@ -24,12 +24,12 @@ const { store, persistor } = storeConfig()
 
 const App = ()=>{
 
-  useEffect(()=>{
-    if(__DEV__) {
-      import('./config/ReactotronConfig').then(() => console.log('Reactotron Configured'))
-    }
-    SentryConfig()
-  },[__DEV__])
+  //useEffect(()=>{
+    //if(__DEV__) {
+      //import('./config/ReactotronConfig').then(() => console.log('Reactotron Configured'))
+    //}
+    //SentryConfig()
+  //},[__DEV__])
 
   return(
     <Provider store={store}>
