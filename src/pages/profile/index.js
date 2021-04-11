@@ -76,7 +76,7 @@ export default Profile
 const styles = StyleSheet.create({
     pages:{
         flex: 1,
-        backgroundColor: '#262F56',
+        backgroundColor: 'white',
     },
     nama : {textAlign: 'center', fontSize: 18,fontFamily: 'Nunito-SemiBold'},
     welcome: {textAlign: 'center', fontSize: 12,},

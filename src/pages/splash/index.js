@@ -42,5 +42,5 @@ const styles = StyleSheet.create({
     logos:{
         width: '100%',
     },
-    logo: {width: 200,height: 70}
+    logo: {width: 175,height: 40}
 })

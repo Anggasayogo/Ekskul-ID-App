@@ -90,7 +90,7 @@ export default Myplaylist
 const styles = StyleSheet.create({
     pages:{
         flex: 1,
-        backgroundColor: '#262F56',
+        backgroundColor: 'white',
     },
     container:{
         flex: 1,

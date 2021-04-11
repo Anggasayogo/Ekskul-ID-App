@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     titles: (active)=>({
-        color: active ? "#F8B459" : "white",
+        color: active ? "#F8B459" : "#B2B5C6",
         fontSize: 11,
         fontFamily: 'Nunito-Regular'
     }),

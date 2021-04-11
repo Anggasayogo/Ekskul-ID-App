@@ -1,7 +1,7 @@
 import Reactotron from 'reactotron-react-native'
 
 const reactotron = Reactotron
-    .configure({ name: 'Ekskul-Id', host: '192.168.43.204' })
+    .configure({ name: 'Ekskul-Id', host: '192.168.1.121' })
     .useReactNative()
 
 if (reactotron) {

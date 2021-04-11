@@ -57,5 +57,3 @@ const Routes = () => {
 }
 
 export default Routes
-
-const styles = StyleSheet.create({})

@@ -3,6 +3,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IcRate, IcRight } from '../../../assets';
 import { Gap } from '../../atom';
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { apply } from '../../../themes/OsmiProvider';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { formatMoney } from '../../../Helper/NumberFormat';
 
 const List = ({icon,title,count,onPress,type,fontSize,width,harga}) => {
     if(type === 'placeholder'){
@@ -47,18 +50,18 @@ const List = ({icon,title,count,onPress,type,fontSize,width,harga}) => {
         </TouchableOpacity>
     }
     if(type === 'play-search'){
-        return <TouchableOpacity onPress={onPress} style={styles.container}>
+        return <TouchableNativeFeedback onPress={onPress} style={apply("justify-between row items-center bg-white shadow py-1")}>
             <View style={styles.heroes}>
                 <Image source={{ uri : icon}} style={styles.heroes}/>
             </View>
             <View style={styles.wraper}>
                 <Gap height={5}/>
-                <Text style={{fontSize: 14,fontFamily: 'Nunito-Regular'}}>{title}</Text>
+                <Text style={{fontSize: 12,fontFamily: 'Nunito-Bold'}}>{title}</Text>
+                <Gap height={4}/>
+                <Text style={{fontSize: 11}}>{formatMoney(harga)}</Text>
                 <Gap height={5}/>
-                <Text style={{fontSize: 10}}>{count}</Text>
-                <Gap height={5}/>
-                <Text style={{fontSize: 10}}>{harga}</Text>
-                <View style={{flexDirection: 'row'}}>
+                <Text style={{fontSize: 10}}>{count} Video</Text>
+                <View style={{flexDirection: 'row',alignItems: 'center',marginLeft: -5}}>
                     <IcRate/>
                     <IcRate/>
                     <IcRate/>
@@ -66,7 +69,7 @@ const List = ({icon,title,count,onPress,type,fontSize,width,harga}) => {
                 </View>
             </View>
             <IcRight/>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
     }
 
     if(type === 'profile'){
@@ -126,6 +129,7 @@ const styles = StyleSheet.create({
         height: 73,
         maxWidth: 115,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderRadius: 5
     },
 })
